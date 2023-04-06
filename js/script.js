@@ -1,7 +1,6 @@
 const btnCreateList = document.getElementById("btn-create-list");
 const desk = document.getElementById("desk");
 let cout = 1;
-btnCreateList.addEventListener('click',addList);
 const inputListName = document.getElementById("list-name");
 
 const btn_clear = document.querySelector(".button_clear");
@@ -29,12 +28,27 @@ function addList(){
   pencil.setAttribute('src','images/pencil.svg');
   pencil.setAttribute('alt','edit');
   pencil.setAttribute('width','30px');
+  let cross = document.createElement("button");
+  cross.classList.add("btn_cross");
+  cross.innerHTML = "X";
+  let listCards = document.createElement("div");
+  listCards.classList.add("list-cards");
+  let addCard = document.createElement("button");
+  addCard.classList.add("add-card");
+  addCard.innerHTML = "+ Добавить карточку";
+  let br = document.createElement("br");
   list.append(header);
   list.append(pencil);
+  list.append(cross);
+  list.append(br);
+  list.append(addCard);
+  list.append(listCards);
   desk.append(list);
   let ln = document.getElementById("list-name");
   ln.value = "";
 }
+
+btnCreateList.addEventListener('click',addList);
 
 //Событие keydown происходит при нажатии клавиши, а keyup – при отпускании.
 
@@ -42,11 +56,38 @@ inputListName.addEventListener('keydown', event => {
   if(event.key == "Enter") btnCreateList.click();
 });
 
-desk.addEventListener('click', event=>{
+desk.addEventListener('click',editList);
+
+
+
+function editList(){
   let obj = event.target;
   if(obj.classList.contains("edit-list")){
-    let list = obj.closest("list");
-    let h2 = list.firstElementChild;
+    //во функции closest в параметре нужно писать класс с точкой !!!
+    let list = obj.closest(".list");
+    console.log(list);
+    let h2 = list.firstChild;
+    h2.setAttribute("contenteditable", "true");
+    h2.focus();
     console.log(h2);
   }
-});
+
+  if(obj.classList.contains("btn_cross")){
+    let list = obj.closest(".list");
+    console.log(list);
+    list.parentNode.removeChild(list);
+  }
+
+  if(obj.classList.contains("add-card")){
+    let list = obj.closest(".list");
+    let listCards = list.querySelector(".list-cards");
+    let card = document.createElement("div");
+    card.classList.add("card");
+    let textArea = document.createElement("textarea");
+    textArea.classList.add("card-text");
+    card.append(textArea);
+    listCards.append(card);
+  }
+}
+
+

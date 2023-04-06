@@ -32,3 +32,32 @@
  .list h2 {
   display: inline;
  }
+
+ .btn_cross {
+  background-color: bisque;
+  height: 50px;
+  border-radius: 100px;
+  border: none;
+  text-align: center;
+  margin-left: 60px;
+ }
+
+ .btn_cross:hover {
+  border: black solid 0.5px;
+  background-color: beige;
+ }
+
+ .add-card {
+  border: none;
+  background-color: blanchedalmond;
+  border-radius: 15px;
+ }
+
+ .add-card:hover {
+  border: black solid 0.5px;
+ }
+
+ .card-text {
+  height: 100px;
+  width: 300px;
+ }

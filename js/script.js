@@ -85,9 +85,29 @@ function editList(){
     card.classList.add("card");
     let textArea = document.createElement("textarea");
     textArea.classList.add("card-text");
+    card.setAttribute("onmouseover","showCross(this)");
+    card.setAttribute("onmouseout","hideCross(this)");
+    let cross = document.createElement("button");
+    cross.classList.add("btn_card_cross");
+    cross.innerHTML = "X";
     card.append(textArea);
+    card.append(cross);
     listCards.append(card);
+  }
+
+  if(obj.classList.contains("btn_card_cross")) {
+    let card = obj.closest(".card");
+    console.log(card);
+    card.parentNode.removeChild(card);
   }
 }
 
+function showCross(obj){
+  let cross = obj.querySelector(".btn_card_cross");
+  cross.style.opacity = 1;
+}
 
+function hideCross(obj){
+  let cross = obj.querySelector(".btn_card_cross");
+  cross.style.opacity = 0;
+}

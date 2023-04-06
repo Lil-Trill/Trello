@@ -61,3 +61,21 @@
   height: 100px;
   width: 300px;
  }
+
+ .btn_card_cross {
+  position: absolute;
+  margin-left: -30px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 70px;
+  opacity: 0;
+ }
+
+ .btn_card_cross:hover {
+  border: black solid 0.5px;
+ }
+
+ .btn_card_cross_show{
+  opacity: 1;
+ }
+

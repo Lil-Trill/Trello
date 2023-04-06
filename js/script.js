@@ -2,8 +2,13 @@ const btnCreateList = document.getElementById("btn-create-list");
 const desk = document.getElementById("desk");
 let cout = 1;
 const inputListName = document.getElementById("list-name");
-
+let lists = ["список 1", "список 2", "список 3"];
 const btn_clear = document.querySelector(".button_clear");
+
+
+for(let i in lists){
+  outputList(lists[i]);
+}
 
 btn_clear.addEventListener("click",(event)=>{
 
@@ -13,14 +18,20 @@ btn_clear.addEventListener("click",(event)=>{
 
 function addList(){
   event.preventDefault();
-  let list = document.createElement("div");
   let listName = document.getElementById("list-name").value;
-  list.classList.add("list");
   if (listName == "") {
-    listName = "Новый список " + cout;
+    listName += "Новый список " + cout;
     cout++;
-    console.log(cout);
   }
+  outputList(listName);
+  lists.push(listName);
+}
+
+
+
+function outputList(listName){
+  let list = document.createElement("div");
+  list.classList.add("list");
   let header = document.createElement("h2");
   header.innerHTML = listName;
   let pencil = document.createElement("img");
@@ -44,9 +55,10 @@ function addList(){
   list.append(addCard);
   list.append(listCards);
   desk.append(list);
-  let ln = document.getElementById("list-name");
-  ln.value = "";
+  listName.value = "";
 }
+
+
 
 btnCreateList.addEventListener('click',addList);
 
@@ -65,16 +77,13 @@ function editList(){
   if(obj.classList.contains("edit-list")){
     //во функции closest в параметре нужно писать класс с точкой !!!
     let list = obj.closest(".list");
-    console.log(list);
     let h2 = list.firstChild;
     h2.setAttribute("contenteditable", "true");
     h2.focus();
-    console.log(h2);
   }
 
   if(obj.classList.contains("btn_cross")){
     let list = obj.closest(".list");
-    console.log(list);
     list.parentNode.removeChild(list);
   }
 
@@ -97,7 +106,6 @@ function editList(){
 
   if(obj.classList.contains("btn_card_cross")) {
     let card = obj.closest(".card");
-    console.log(card);
     card.parentNode.removeChild(card);
   }
 }
@@ -111,3 +119,8 @@ function hideCross(obj){
   let cross = obj.querySelector(".btn_card_cross");
   cross.style.opacity = 0;
 }
+
+for(let i in lists) {
+  console.log(lists[i]);
+}
+console.log(lists.length);

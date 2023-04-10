@@ -4,7 +4,7 @@ let cout = 1;
 const inputListName = document.getElementById("list-name");
 let lists = ["список 1", "список 2", "список 3"];
 const btn_clear = document.querySelector(".button_clear");
-
+let cards = [];
 
 for(let i in lists){
   outputList(lists[i]);
@@ -25,9 +25,21 @@ function addList(){
   }
   outputList(listName);
   lists.push(listName);
+  outputListInConsole();
+  pushToDB(lists);
 }
 
+function pushToDB(lists){
+  localStorage.lists = JSON.stringify(lists);
+  localStorage.lists = JSON.stringify(lists);
+}
 
+function outputListInConsole(){
+  for(let i in lists) {
+    console.log(lists[i]);
+  }
+  console.log(lists.length);
+}
 
 function outputList(listName){
   let list = document.createElement("div");
@@ -55,7 +67,8 @@ function outputList(listName){
   list.append(addCard);
   list.append(listCards);
   desk.append(list);
-  listName.value = "";
+  let ln = document.getElementById("list-name");
+  ln.value = "";
 }
 
 
@@ -85,6 +98,11 @@ function editList(){
   if(obj.classList.contains("btn_cross")){
     let list = obj.closest(".list");
     list.parentNode.removeChild(list);
+    let listName = list.querySelector("h2");
+    let currentList = lists.indexOf(listName.innerHTML);
+    lists.splice(currentList,1);
+    pushToDB(lists);
+    outputListInConsole();
   }
 
   if(obj.classList.contains("add-card")){
@@ -102,6 +120,9 @@ function editList(){
     card.append(textArea);
     card.append(cross);
     listCards.append(card);
+    console.log(textArea);
+    cards.push(textArea.value);
+    showCards();
   }
 
   if(obj.classList.contains("btn_card_cross")) {
@@ -120,7 +141,8 @@ function hideCross(obj){
   cross.style.opacity = 0;
 }
 
-for(let i in lists) {
-  console.log(lists[i]);
+function showCards(){
+  for(let i in cards){
+    console.log(cards[i]);
+  }
 }
-console.log(lists.length);

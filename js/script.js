@@ -31,7 +31,6 @@ function addList(){
 
 function pushToDB(lists){
   localStorage.lists = JSON.stringify(lists);
-  localStorage.lists = JSON.stringify(lists);
 }
 
 function outputListInConsole(){
@@ -105,6 +104,7 @@ function editList(){
     outputListInConsole();
   }
 
+  //
   if(obj.classList.contains("add-card")){
     let list = obj.closest(".list");
     let listCards = list.querySelector(".list-cards");
@@ -120,8 +120,7 @@ function editList(){
     card.append(textArea);
     card.append(cross);
     listCards.append(card);
-    console.log(textArea);
-    cards.push(textArea.value);
+    cards.push(card);
     showCards();
   }
 
@@ -143,6 +142,8 @@ function hideCross(obj){
 
 function showCards(){
   for(let i in cards){
+    if(cards[i] == null) console.log("ups");
     console.log(cards[i]);
+    console.log(cards.length);
   }
 }
